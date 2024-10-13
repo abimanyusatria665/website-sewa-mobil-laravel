@@ -1,0 +1,59 @@
+.nav-brand {
+    color: white;
+    font-size : 40px;
+    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+}
+
+.about-img {
+    width: 550px;
+    border-radius: 5%;
+}
+
+.title-1 {
+    color: white;
+    font-size: 70px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+}
+
+.title-2 {
+    color: white;
+    font-size: 50px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+}
+
+.about-text {
+    color : white;
+    font-size : 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.nav-item > a {
+    font-family : "Poppins", sans-serif;
+    color: white;
+}
+
+.navbar {
+    background-color: #3A6D8C !important;
+}
+
+.btn-login {
+    background-color: #6A9AB0;
+}
+.bg-1 {
+    background-color:rgb(106, 154, 176);
+
+}
+.content-1 {
+    background-color:rgb(106, 154, 176);
+}
+
+
+.bg-2 {
+    background-color: rgb(0, 31, 63);
+}
+.content-2 {
+    background-color: rgb(0, 31, 63);
+}
