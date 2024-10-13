@@ -33,4 +33,5 @@ Route::post('/car/delete/{id}', [CarController::class, 'destroy']);
 
 Route::get('/rent/create', [RentController::class, 'create']);
 Route::post('/rent/post', [RentController::class, 'store'])->name('rent.post');
-
+Route::get('/rent', [RentController::class, 'index']);
+Route::post('/rent/return/{id}', [RentController::class, 'update'])->name('return.rent');

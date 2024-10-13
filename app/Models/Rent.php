@@ -22,6 +22,6 @@ class Rent extends Model
 
     public function rentDetails()
     {
-        return $this->hasOne(RentDetails::class);
+        return $this->hasMany(RentDetails::class);
     }
 }

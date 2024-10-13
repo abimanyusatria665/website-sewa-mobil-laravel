@@ -33,7 +33,7 @@
                                             <td>
                                                 <div class="input-group touchspin-cart">
                                                     <input class="touchspin-cart" type="number" value="0"
-                                                        max="30" name="should_be_returned" />
+                                                        max="30" name="total_days" />
                                                 </div>
                                             </td>
                                             <td>

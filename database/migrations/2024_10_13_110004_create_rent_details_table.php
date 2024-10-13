@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->bigInteger('car_id');
             $table->decimal('penalty')->nullable();
             $table->boolean('status')->default(false);
-            $table->decimal('sub_total');
-            $table->date('should_be_returned');
+            $table->decimal('sub_total', 11, 2);
+            $table->dateTime('should_be_returned');
             $table->timestamps();
         });
     }

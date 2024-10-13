@@ -23,9 +23,33 @@ class RentController extends Controller
     {
         $data = [];
         if (Auth::user()->role == "admin") {
-            $data = Rent::with('rent_details', 'rent_details.car');
+            $data = Rent::with('rentDetails', 'rentDetails.car')->get();
         } else {
-            $data = Rent::with('rent_details', 'car')->where('user_id', Auth::user()->id);
+            $data = Rent::with('rentDetails', 'rentDetails.car')->where('user_id', Auth::user()->id)->get();
+        }
+
+        foreach ($data as $rent) {
+            foreach ($rent->rentDetails as $detail) {
+                if ($detail->status == 0) {
+                    $totalPrice = 0;
+                    $shouldBeReturned = new Carbon($detail->should_be_returned);
+
+                    $hoursLate = $shouldBeReturned->diffInHours(Carbon::now(), false);
+                    if ($hoursLate >= 0) {
+                        $detail->penalty = $hoursLate * 10000;
+                        $detail->save();
+                    }
+
+                    $totalPrice += $detail->sub_total + $detail->penalty;
+                    $totalTime = $hoursLate >= 0 ? $rent->created_at->diffInHours($shouldBeReturned) + $hoursLate : $rent->created_at->diffInHours($shouldBeReturned);
+
+                    $rent = Rent::where('id', $rent->id)->update([
+                        'total_price' => $totalPrice,
+                        'total_time' => $totalTime
+                    ]);
+                }
+            }
+
         }
         return view('rent.index', compact('data'));
 
@@ -49,8 +73,8 @@ class RentController extends Controller
         $sub_total = $car->price * $request->total_days;
         $rent = Rent::create([
             'user_id' => Auth::User()->id,
-            // 'total_price' => $total_price,
-            // 'total_time' => $request->total_days
+            'total_price' => $sub_total,
+            'total_time' => $request->total_days
         ]);
         $should_be_returned = Carbon::now()->addDays($request->total_days);
         $rent_details = RentDetails::create([
@@ -82,9 +106,12 @@ class RentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rent $rent)
+    public function update(Request $request, Rent $rent, $id)
     {
-        //
+        RentDetails::where('rent_id', $id)->update([
+            'status' => 1
+        ]);
+        return back()->with('success', "Successfully Return The Rent");
     }
 
     /**

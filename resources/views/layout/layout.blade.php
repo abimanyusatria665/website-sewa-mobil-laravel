@@ -34,13 +34,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
-                    @guest
+                    @if (!Auth::check())
                         <li class="nav-item">
                             <a href="/login" class="btn btn-login">
                                 Login
                             </a>
                         </li>
-                    @endguest
+                    @endif
                 </ul>
             </div>
         </div>

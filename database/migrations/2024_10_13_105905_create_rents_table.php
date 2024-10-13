@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->decimal('total_price')->nullable();
+            $table->decimal('total_price', 11, 2)->nullable();
             $table->string('total_time')->nullable();
             $table->timestamps();
         });
